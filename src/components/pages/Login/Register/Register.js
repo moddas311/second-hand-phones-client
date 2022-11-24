@@ -1,13 +1,57 @@
-import React from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 
 const Register = () => {
+
+    const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+    const [registerError, setRegisterError] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const provider = new GoogleAuthProvider();
+
     const handleRegister = data => {
-        console.log(data);
+        setRegisterError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('User Created Successfully.');
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(result => {
+                        const user = result.user;
+                        console.log(user);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            })
+            .catch(err => {
+                toast.error(err.message);
+                setRegisterError(err.message);
+            });
     }
+
+    // login with google
+    const handleGoogleLogin = () => {
+        googleLogin(provider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('User Created Successfully.');
+            })
+            .catch(err => {
+                toast.error(err.message);
+                setRegisterError(err.message);
+            })
+    }
+
 
     return (
         <div className='flex justify-center items-center'>
@@ -20,7 +64,7 @@ const Register = () => {
                             <span className="label-text">Name</span>
                         </label>
                         <input type='text'  {...register("name", {
-                            required: 'Without your name you can not Sign Up'
+                            required: 'Without your name you can not register'
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.name && <p className='text-[12px] text-red-600 pt-3'>{errors.name.message}</p>}
                     </div>
@@ -43,7 +87,7 @@ const Register = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-[12px] text-red-600 pt-3'>{errors.password.message}</p>}
                     </div >
-                    <div className='flex justify-center gap-10 mt-3'>
+                    {/* <div className='flex justify-center gap-10 mt-3'>
                         <div className='flex gap-2'>
                             <input className="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value='Seller' />
                             <p>Seller</p>
@@ -53,11 +97,11 @@ const Register = () => {
                             <p>User</p>
                         </div>
 
-                    </div>
+                    </div> */}
                     <input className='btn btn-accent w-full mt-5' value='Register' type="submit" />
-                    {/* {
-                        signUpError && <p className='text-[12px] text-red-600 pt-3'>{signUpError}</p>
-                    } */}
+                    {
+                        registerError && <p className='text-[12px] text-red-600 pt-3'>{registerError}</p>
+                    }
                 </form>
                 <p className='mt-3'>
                     <span>Already have an account?
@@ -65,7 +109,7 @@ const Register = () => {
                     </span>
                 </p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>Continue With Google</button>
+                <button onClick={handleGoogleLogin} className='btn btn-outline w-full'>Continue With Google</button>
             </div>
         </div>
     );
