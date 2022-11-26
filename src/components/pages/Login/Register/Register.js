@@ -16,26 +16,29 @@ const Register = () => {
     const handleRegister = data => {
         setRegisterError('');
         createUser(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                toast.success('User Created Successfully.');
-                const userInfo = {
-                    displayName: data.name
-                }
-                updateUser(userInfo)
-                    .then(result => {
-                        const user = result.user;
-                        console.log(user);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                    });
-            })
-            .catch(err => {
-                toast.error(err.message);
-                setRegisterError(err.message);
-            });
+        console.log(data);
+
+        // .then(result => {
+        //     const user = result.user;
+        //     console.log(user);
+        //     toast.success('User Created Successfully.');
+
+        //     const userInfo = {
+        //         displayName: data.name
+        //     }
+        //     updateUser(userInfo)
+        //         .then(result => {
+        //             const user = result.user;
+        //             console.log(user);
+        //         })
+        //         .catch(err => {
+        //             console.error(err);
+        //         });
+        // })
+        // .catch(err => {
+        //     toast.error(err.message);
+        //     setRegisterError(err.message);
+        // });
     }
 
     // login with google
@@ -51,6 +54,8 @@ const Register = () => {
                 setRegisterError(err.message);
             })
     }
+
+
 
 
     return (
@@ -70,6 +75,15 @@ const Register = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input type='file' {...register("file", {
+                            required: 'image is required',
+                        })} />
+                        {errors.password && <p className='text-[12px] text-red-600 pt-3'>{errors.password.message}</p>}
+                    </div >
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
                             <span className="label-text">Email</span>
                         </label>
                         <input type='email' {...register("email", {
@@ -87,17 +101,22 @@ const Register = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-[12px] text-red-600 pt-3'>{errors.password.message}</p>}
                     </div >
-                    {/* <div className='flex justify-center gap-10 mt-3'>
-                        <div className='flex gap-2'>
-                            <input className="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value='Seller' />
-                            <p>Seller</p>
-                        </div>
-                        <div className='flex gap-2'>
-                            <input className="form-check-input" type="radio" name="radio" id="flexRadioDefault1" />
-                            <p>User</p>
-                        </div>
 
-                    </div> */}
+                    <div className='flex justify-around mt-2'>
+                        <div className='flex justify-center items-center'>
+                            <input type="radio" {...register("seller")} name="radio-1" id="seller" className="radio mr-2" />
+                            <label htmlFor="seller">
+                                <span className="label-text">Seller</span>
+                            </label>
+                        </div>
+                        <div className='flex justify-center items-center'>
+                            <input type="radio" {...register("buyer")} name="radio-1" id="buyer" className="radio mr-2"  />
+                            <label htmlFor="buyer">
+                                <span className="label-text">Buyer</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <input className='btn btn-accent w-full mt-5' value='Register' type="submit" />
                     {
                         registerError && <p className='text-[12px] text-red-600 pt-3'>{registerError}</p>

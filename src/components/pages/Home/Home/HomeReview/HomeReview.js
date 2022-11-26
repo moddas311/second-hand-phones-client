@@ -24,7 +24,7 @@ const HomeReview = () => {
                     <textarea className="textarea w-full input-bordered input-secondary max-w-xs" placeholder="Your Opinion"></textarea>
                 </div>
                 <div className='py-2'>
-                    <button className='btn btn-active btn-secondary rounded-lg'>Feed Back</button>
+                    <button className='btn btn-active btn-secondary text-white font-bold rounded-lg'>Feed Back</button>
                 </div>
             </form>
         </div>

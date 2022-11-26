@@ -2,8 +2,10 @@ import React from 'react';
 import banner from '../../../../assets/banner/banner.jpg';;
 
 const Banner = () => {
+
+
     return (
-        <div className="card w-full shadow-xl image-full py-10 px-5 ">
+        <div className="card w-full shadow-xl image-full py-10">
             <figure><img className='bg-gradient-to-r from-black to-transparent' src={banner} alt="banner" /></figure>
             <div className="card-body mt-16">
                 <h2 className="card-title text-5xl text-orange-300 font-bold">Phone's Bazar</h2>
