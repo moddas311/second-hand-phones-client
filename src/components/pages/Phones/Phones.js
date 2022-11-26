@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import BookingModal from './BookingModal/BookingModal';
 import Phone from './Phone';
 
 const Phones = () => {
     const phones = useLoaderData();
+    const [availablePhones, setAvailablePhones] = useState(null);
 
     return (
         <div>
@@ -16,9 +18,16 @@ const Phones = () => {
                     phones.map(phone => <Phone
                         key={phone._id}
                         phone={phone}
+                        setAvailablePhones={setAvailablePhones}
                     />)
                 }
             </div>
+            {
+                availablePhones &&
+                <BookingModal
+                    availablePhones={availablePhones}
+                />
+            }
         </div>
     );
 };

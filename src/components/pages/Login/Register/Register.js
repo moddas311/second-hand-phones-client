@@ -39,6 +39,13 @@ const Register = () => {
         //     toast.error(err.message);
         //     setRegisterError(err.message);
         // });
+
+
+
+        
+
+
+
     }
 
     // login with google

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Phone = ({ phone }) => {
+const Phone = ({ phone, setAvailablePhones }) => {
 
 
 
@@ -18,7 +18,11 @@ const Phone = ({ phone }) => {
                     <p className="dark:text-gray-100">Used: {used}</p>
                     <p className="dark:text-gray-100">Post Date: {postedDate}</p>
                 </div>
-                <button  className="btn btn-success flex items-center mx-auto justify-center rounded-md ">Book Now</button>
+                <label
+                    onClick={() => setAvailablePhones(phone)}
+                    htmlFor="booking-modal"
+                    className="btn btn-success flex items-center mx-auto justify-center rounded-md"
+                >Book Now</label>
             </div>
         </div>
     );
