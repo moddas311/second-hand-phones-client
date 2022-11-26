@@ -14,29 +14,30 @@ const Register = () => {
     const provider = new GoogleAuthProvider();
 
     const handleRegister = data => {
+        console.log(data);
         setRegisterError('');
-        createUser(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                toast.success('User Created Successfully.');
+        // createUser(data.email, data.password)
+        //     .then(result => {
+        //         const user = result.user;
+        //         console.log(user);
+        //         toast.success('User Created Successfully.');
 
-                const userInfo = {
-                    displayName: data.name
-                }
-                updateUser(userInfo)
-                    .then(result => {
-                        const user = result.user;
-                        console.log(user);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                    });
-            })
-            .catch(err => {
-                toast.error(err.message);
-                setRegisterError(err.message);
-            });
+        //         const userInfo = {
+        //             displayName: data.name
+        //         }
+        //         updateUser(userInfo)
+        //             .then(result => {
+        //                 const user = result.user;
+        //                 console.log(user);
+        //             })
+        //             .catch(err => {
+        //                 console.error(err);
+        //             });
+        //     })
+        //     .catch(err => {
+        //         toast.error(err.message);
+        //         setRegisterError(err.message);
+        //     });
     }
 
     // login with google
@@ -102,13 +103,13 @@ const Register = () => {
 
                     <div className='flex justify-around mt-2'>
                         <div className='flex justify-center items-center'>
-                            <input type="radio" {...register("seller")} name="radio-1" id="seller" className="radio mr-2" />
+                            <input type="radio" name="type" {...register("type")} className="radio radio-accent" id='seller' value='seller' />
                             <label htmlFor="seller">
                                 <span className="label-text">Seller</span>
                             </label>
                         </div>
                         <div className='flex justify-center items-center'>
-                            <input type="radio" {...register("buyer")} name="radio-1" id="buyer" className="radio mr-2" />
+                            <input type="radio" {...register("type")} name="type" id="buyer" className="radio mr-2" value='buyer' checked />
                             <label htmlFor="buyer">
                                 <span className="label-text">Buyer</span>
                             </label>
