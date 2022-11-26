@@ -16,36 +16,27 @@ const Register = () => {
     const handleRegister = data => {
         setRegisterError('');
         createUser(data.email, data.password)
-        console.log(data);
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('User Created Successfully.');
 
-        // .then(result => {
-        //     const user = result.user;
-        //     console.log(user);
-        //     toast.success('User Created Successfully.');
-
-        //     const userInfo = {
-        //         displayName: data.name
-        //     }
-        //     updateUser(userInfo)
-        //         .then(result => {
-        //             const user = result.user;
-        //             console.log(user);
-        //         })
-        //         .catch(err => {
-        //             console.error(err);
-        //         });
-        // })
-        // .catch(err => {
-        //     toast.error(err.message);
-        //     setRegisterError(err.message);
-        // });
-
-
-
-        
-
-
-
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(result => {
+                        const user = result.user;
+                        console.log(user);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            })
+            .catch(err => {
+                toast.error(err.message);
+                setRegisterError(err.message);
+            });
     }
 
     // login with google
@@ -117,7 +108,7 @@ const Register = () => {
                             </label>
                         </div>
                         <div className='flex justify-center items-center'>
-                            <input type="radio" {...register("buyer")} name="radio-1" id="buyer" className="radio mr-2"  />
+                            <input type="radio" {...register("buyer")} name="radio-1" id="buyer" className="radio mr-2" />
                             <label htmlFor="buyer">
                                 <span className="label-text">Buyer</span>
                             </label>
