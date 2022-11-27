@@ -6,7 +6,6 @@ import Phone from './Phone';
 const Phones = () => {
     const phones = useLoaderData();
     const [availablePhones, setAvailablePhones] = useState(null);
-
     return (
         <div>
             <div>
@@ -25,6 +24,7 @@ const Phones = () => {
             {
                 availablePhones &&
                 <BookingModal
+                    setAvailablePhones={setAvailablePhones}
                     availablePhones={availablePhones}
                 />
             }

@@ -4,7 +4,7 @@ const Phone = ({ phone, setAvailablePhones }) => {
 
 
 
-    const { img, name, location, sellPrice, used, postedDate } = phone;
+    const { img, name, location, sellPrice, originalPrice, used, postedDate } = phone;
 
 
     return (
@@ -14,7 +14,8 @@ const Phone = ({ phone, setAvailablePhones }) => {
                 <div className="space-y-2">
                     <h2 className="text-2xl">{name}</h2>
                     <p className="dark:text-gray-100">Location: {location}</p>
-                    <p className="dark:text-gray-100">Price: {sellPrice}৳</p>
+                    <p className="dark:text-gray-100">Market Price: {originalPrice}৳</p>
+                    <p className="dark:text-gray-100">Resell Price: {sellPrice}৳</p>
                     <p className="dark:text-gray-100">Used: {used}</p>
                     <p className="dark:text-gray-100">Post Date: {postedDate}</p>
                 </div>

@@ -12,7 +12,7 @@ const Category = ({ singleCategory }) => {
             <div className="card-body justify-between">
                 <h2 className="card-title text-4xl text-orange-600">{name}</h2>
                 <div className="card-actions justify-end">
-                    <Link to={`/categories/${category_Id}`} className="btn btn-success rounded-md">See ALl</Link>
+                    <Link to={`/categories/${category_Id}`} className="btn btn-success text-white rounded-md">See ALl</Link>
                 </div>
             </div>
         </div>

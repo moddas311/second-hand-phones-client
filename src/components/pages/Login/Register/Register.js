@@ -8,36 +8,37 @@ import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 const Register = () => {
 
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+    
     const [registerError, setRegisterError] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const provider = new GoogleAuthProvider();
 
     const handleRegister = data => {
-        console.log(data);
         setRegisterError('');
-        // createUser(data.email, data.password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user);
-        //         toast.success('User Created Successfully.');
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('User Created Successfully.');
 
-        //         const userInfo = {
-        //             displayName: data.name
-        //         }
-        //         updateUser(userInfo)
-        //             .then(result => {
-        //                 const user = result.user;
-        //                 console.log(user);
-        //             })
-        //             .catch(err => {
-        //                 console.error(err);
-        //             });
-        //     })
-        //     .catch(err => {
-        //         toast.error(err.message);
-        //         setRegisterError(err.message);
-        //     });
+                const userInfo = {
+                    displayName: data.name,
+                    role: data.type
+                }
+                console.log(userInfo);
+                updateUser(userInfo)
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            })
+            .catch(err => {
+                toast.error(err.message);
+                setRegisterError(err.message);
+            });
     }
 
     // login with google
@@ -101,19 +102,18 @@ const Register = () => {
                         {errors.password && <p className='text-[12px] text-red-600 pt-3'>{errors.password.message}</p>}
                     </div >
 
-                    <div className='flex justify-around mt-2'>
-                        <div className='flex justify-center items-center'>
-                            <input type="radio" name="type" {...register("type")} className="radio radio-accent" id='seller' value='seller' />
-                            <label htmlFor="seller">
-                                <span className="label-text">Seller</span>
-                            </label>
+                    <div className="form-control w-full max-w-xs">
+
+                        <div className='flex justify-between mt-5'>
+                            <label className="label"><span className="label-text text-xl font-semibold mr-4">I would like to:</span></label>
+                            <select
+                                {...register("roll")}
+                                className="select select-bordered lg:w-[160px] md:w-[160px] w-[130px]">
+                                <option selected defaultValue={'Buyer'} >Buyer</option>
+                                <option defaultValue={'Seller'} >Seller</option>
+                            </select>
                         </div>
-                        <div className='flex justify-center items-center'>
-                            <input type="radio" {...register("type")} name="type" id="buyer" className="radio mr-2" value='buyer' checked />
-                            <label htmlFor="buyer">
-                                <span className="label-text">Buyer</span>
-                            </label>
-                        </div>
+
                     </div>
 
                     <input className='btn btn-accent w-full mt-5' value='Register' type="submit" />
