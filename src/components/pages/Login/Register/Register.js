@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
+import useToken from '../../../../hooks/useToken';
 
 const Register = () => {
 
@@ -12,18 +13,22 @@ const Register = () => {
 
     const [registerError, setRegisterError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
-    console.log(imgUrl);
+    const [token] = useToken(createdUserEmail);
+    // const [imgUrl, setImgUrl] = useState('');
+    // console.log(imgUrl);
+
     const navigate = useNavigate();
 
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
     const imgHostKey = "7be5891c412694d2c71228341a247974";
     console.log("key", imgHostKey);
 
-
+    if (token) {
+        navigate('/');
+    }
     const handleRegister = data => {
 
-        const roll = getValues('roll');
+        const role = getValues('role');
         const profilePhoto = data.userProfile[0];
         console.log(profilePhoto);
         const formData = new FormData();
@@ -36,6 +41,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                toast.success('User Created Successfully');
 
                 // update
                 const profile = {
@@ -52,9 +58,8 @@ const Register = () => {
                             profile.photoURL = imgData.data.url;
                             updateUser(profile)
                                 .then(() => {
-                                    toast.success('User Created Successfully');
-                                    saveUser(data.name, data.email, roll);
-                                    navigate('/');
+                                    saveUser(data.name, data.email, role);
+
                                 })
                                 .catch(er => {
                                     toast.error(er.message);
@@ -68,8 +73,8 @@ const Register = () => {
             });
     }
 
-    const saveUser = (name, email, roll) => {
-        const user = { name, email, roll }
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role }
         fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
@@ -79,10 +84,11 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setCreatedUserEmail(data.email)
+                setCreatedUserEmail(email)
             })
 
     }
+
 
 
     // login with google
@@ -151,7 +157,7 @@ const Register = () => {
                         <div className='flex justify-between mt-5'>
                             <label className="label"><span className="label-text text-xl font-semibold mr-4">I would like to:</span></label>
                             <select
-                                {...register("roll")}
+                                {...register("role")}
                                 className="select select-bordered lg:w-[160px] md:w-[160px] w-[130px]">
                                 <option selected defaultValue={'Buyer'} >Buyer</option>
                                 <option defaultValue={'Seller'} >Seller</option>
