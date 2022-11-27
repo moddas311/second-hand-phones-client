@@ -1,4 +1,5 @@
 import React from 'react';
+import blog from '../../../assets/banner/blog.jpeg'
 
 const Blog = () => {
     return (
@@ -6,9 +7,9 @@ const Blog = () => {
 
             <h2 className='text-3xl font-bold text-center text-sky-500 py-5'>Welcome to my Blog!</h2>
 
-            <div className='grid my-10 gap-10 grid-cols-1 md:grid-cols-2'>
+            <div className='grid my-10 gap-10 grid-cols-1 md:grid-cols-2 '>
                 <div className="card shadow-xl">
-                    <div className="card-body">
+                    <div className="card-body bg-gray-300">
                         <h2 className="card-title text-red-500">What are the different ways to manage a state in a React application?</h2>
                         <p>
                             <small className='text-blue-600'>
@@ -26,8 +27,8 @@ const Blog = () => {
                     </div>
                 </div>
                 <div className="card shadow-xl">
-                    <div className="card-body text-red-500">
-                        <h2 className="card-title">How does prototypical inheritance work?</h2>
+                    <div className="card-body  bg-gray-300">
+                        <h2 className="card-title  text-red-500">How does prototypical inheritance work?</h2>
                         <p>
                             <small className='text-blue-600'>
                                 Everything in Javascript is an object. Even when creating a Class is an Object via an Object Literal or Constructor Function. This is how Javascript does class-based programming as to other traditional Object-Oriented Programming languages where they use the keyword ‘class’ and ‘inheritance’.
@@ -39,9 +40,9 @@ const Blog = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card shadow-xl text-red-500">
-                    <div className="card-body">
-                        <h2 className="card-title">What is a unit test? Why should we write unit tests?</h2>
+                <div className="card shadow-xl">
+                    <div className="card-body  bg-gray-300">
+                        <h2 className="card-title  text-red-500">What is a unit test? Why should we write unit tests?</h2>
                         <p>
                             <small className='text-blue-600'>
                                 The main objective of unit testing is to isolate written code to test and determine if it works as intended.
@@ -52,9 +53,9 @@ const Blog = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card shadow-xl text-red-500">
-                    <div className="card-body">
-                        <h2 className="card-title">React vs. Angular vs. Vue?</h2>
+                <div className="card shadow-xl ">
+                    <div className="card-body bg-gray-300">
+                        <h2 className="card-title text-red-500">React vs. Angular vs. Vue?</h2>
                         <p>
                             <small className='text-blue-600'>
                                 Angular, React, and Vue are all under very active development. They regularly release new versions and maintain the existing ones. As the current level of support is high in each case, you can safely use any of these frameworks.
