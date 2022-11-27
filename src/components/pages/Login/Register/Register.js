@@ -2,44 +2,88 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 
 const Register = () => {
 
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
-    
-    const [registerError, setRegisterError] = useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
     const provider = new GoogleAuthProvider();
 
+    const [registerError, setRegisterError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [imgUrl, setImgUrl] = useState('');
+    console.log(imgUrl);
+    const navigate = useNavigate();
+
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
+    const imgHostKey = "7be5891c412694d2c71228341a247974";
+    console.log("key", imgHostKey);
+
+
     const handleRegister = data => {
+
+        const roll = getValues('roll');
+        const profilePhoto = data.userProfile[0];
+        console.log(profilePhoto);
+        const formData = new FormData();
+        formData.append('image', profilePhoto)
+
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
+
         setRegisterError('');
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success('User Created Successfully.');
 
-                const userInfo = {
+                // update
+                const profile = {
                     displayName: data.name,
-                    role: data.type
                 }
-                console.log(userInfo);
-                updateUser(userInfo)
-                    .then(result => {
-                        console.log(result);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(imgData => {
+                        if (imgData.success) {
+                            profile.photoURL = imgData.data.url;
+                            updateUser(profile)
+                                .then(() => {
+                                    toast.success('User Created Successfully');
+                                    saveUser(data.name, data.email, roll);
+                                    navigate('/');
+                                })
+                                .catch(er => {
+                                    toast.error(er.message);
+                                })
+                        }
                     })
-                    .catch(err => {
-                        console.error(err);
-                    });
             })
             .catch(err => {
                 toast.error(err.message);
                 setRegisterError(err.message);
             });
     }
+
+    const saveUser = (name, email, roll) => {
+        const user = { name, email, roll }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(data.email)
+            })
+
+    }
+
 
     // login with google
     const handleGoogleLogin = () => {
@@ -77,7 +121,7 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type='file' {...register("file", {
+                        <input type='file' {...register("userProfile", {
                             required: 'image is required',
                         })} />
                         {errors.password && <p className='text-[12px] text-red-600 pt-3'>{errors.password.message}</p>}

@@ -55,8 +55,8 @@ const BookingModal = ({ availablePhones, setAvailablePhones }) => {
                         <input name='email' type="email" defaultValue={email} className="input input-bordered input-info w-full" disabled />
                         <input name='sellPrice' type="number" defaultValue={sellPrice} className="input input-bordered input-info w-full" disabled />
                         <input name='number' type="number" placeholder="Please type your phone number" className="input input-bordered input-info w-full" />
-                        <input name='location' type="text" placeholder="Meeting Location" className="input input-bordered input-info w-full" />
-                        <input className='btn btn-success w-full font-bold text-white mt-2' type="submit" value="submit" />
+                        <input name='location' type="text" placeholder="Meeting Location" className="input input-bordered input-info w-full" required />
+                        <input className='btn btn-success w-full font-bold text-white mt-2' type="submit" value="submit" required />
                     </form>
                 </div>
             </div>

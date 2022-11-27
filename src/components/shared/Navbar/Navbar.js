@@ -23,9 +23,11 @@ const Navbar = () => {
             user?.uid ?
                 <>
                     <li><Link to='/dashboard'>Dashboard</Link></li>
-                    <button onClick={handleLogOut} className='btn btn-outline rounded-lg border-none'>Sign Out</button>
-                    <div className="avatar w-10 rounded-xl mx-3">
-                        <img className='rounded-full' alt='userImage' src={user?.photoURL} />
+                    <button onClick={handleLogOut} className='my-auto btn btn-outline rounded-lg border-none'>Sign Out</button>
+                    <div className='avatar'>
+                        <div className=" w-12 rounded-xl mx-3">
+                            <img className='rounded-full' alt='userImage' src={user?.photoURL} />
+                        </div>
                     </div>
                 </>
                 :

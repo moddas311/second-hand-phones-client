@@ -1,5 +1,4 @@
 import React from 'react';
-import blog from '../../../assets/banner/blog.jpeg'
 
 const Blog = () => {
     return (

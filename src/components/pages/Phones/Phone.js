@@ -4,7 +4,7 @@ const Phone = ({ phone, setAvailablePhones }) => {
 
 
 
-    const { img, name, location, sellPrice, originalPrice, used, postedDate } = phone;
+    const { img, name, location, sellPrice, sellerName, originalPrice, used, postedDate } = phone;
 
 
     return (
@@ -12,7 +12,10 @@ const Phone = ({ phone, setAvailablePhones }) => {
             <img src={img} alt="" className="object-cover object-center w-full rounded-t-md h-72 dark:bg-gray-500" />
             <div className="flex flex-col justify-between p-6 space-y-8">
                 <div className="space-y-2">
-                    <h2 className="text-2xl">{name}</h2>
+                    <div className='bg-yellow-100 rounded-lg text-blue-500 text-left p-4'>
+                        <h2 className="text-2xl">Model:  {name}</h2>
+                        <h3 className='font-bold text-xl'>Seller: {sellerName}</h3>
+                    </div>
                     <p className="dark:text-gray-100">Location: {location}</p>
                     <p className="dark:text-gray-100">Market Price: {originalPrice}৳</p>
                     <p className="dark:text-gray-100">Resell Price: {sellPrice}৳</p>

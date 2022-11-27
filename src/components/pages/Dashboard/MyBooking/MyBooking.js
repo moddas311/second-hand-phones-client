@@ -40,8 +40,10 @@ const MyBooking = () => {
                                 >
                                     <th>{i + 1}</th>
                                     <th>
-                                        <div className="avatar w-10 rounded-xl">
-                                            <img className='rounded-full' alt='userImage' src={user.photoURL} />
+                                        <div className='avatar'>
+                                            <div className="w-16 rounded-full">
+                                                <img className='rounded-1/2' alt='userImage' src={user.photoURL} />
+                                            </div>
                                         </div>
                                     </th>
 
