@@ -41,6 +41,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setLoginUserEmail(user.email);
                 navigate(from, { replace: true });
             })
             .catch(er => {

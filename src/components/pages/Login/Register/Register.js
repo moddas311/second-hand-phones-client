@@ -20,8 +20,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
-    const imgHostKey = "7be5891c412694d2c71228341a247974";
-    console.log("key", imgHostKey);
+    const imgHostKey = process.env.REACT_APP_imgbb_key;
 
     if (token) {
         navigate('/');
@@ -126,7 +125,7 @@ const Register = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
-                            <span className="label-text">Password</span>
+                            <span className="label-text">Profile Photo</span>
                         </label>
                         <input type='file' {...register("userProfile", {
                             required: 'image is required',

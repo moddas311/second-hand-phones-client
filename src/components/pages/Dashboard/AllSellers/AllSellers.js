@@ -14,7 +14,7 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h2 className='text-3xl text-sky-400 py-5 ml-10 font-semibold'>Sellers</h2>
+            <h2 className='text-3xl text-sky-400 pb-5 ml-10 font-semibold'>Sellers</h2>
             <div className="overflow-x-auto mx-10">
                 <table className="table w-full">
 
