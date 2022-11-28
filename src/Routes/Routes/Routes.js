@@ -11,6 +11,7 @@ import Phones from "../../components/pages/Phones/Phones";
 import ErrorPage from "../../components/shared/ErrorPage/ErrorPage";
 import DashboardLayout from "../../Layouts/DashboardLayout";
 import Main from "../../Layouts/Main";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -53,11 +54,11 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/buyers',
                 element: <AllBuyers />,
-                
+
             },
             {
                 path: '/dashboard/admin',
-                element: <Admin />
+                element: <AdminRoute><Admin /></AdminRoute>
             },
             {
                 path: '/dashboard/seller',
