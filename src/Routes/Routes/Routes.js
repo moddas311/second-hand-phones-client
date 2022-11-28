@@ -13,6 +13,7 @@ import DashboardLayout from "../../Layouts/DashboardLayout";
 import Main from "../../Layouts/Main";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/seller',
-                element: <AllSellers />
+                element: <SellerRoute><AllSellers /></SellerRoute>
             }
         ]
     }
