@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '../../../../assets/banner/banner.jpg';;
+import banner from '../../../../assets/banner/banner.jpg';
 
 const Banner = () => {
 
@@ -19,7 +19,7 @@ const Banner = () => {
                     <br />
                     We are Providing <span className='text-sky-600 font-bold'>SamSung, iPhone & onePlus</span>
                     <br />
-                   <span className='text-blue-400 text-xl font-bold'>You Should Buy From us!!</span>
+                    <span className='text-blue-400 text-xl font-bold'>You Should Buy From us!!</span>
                 </p>
             </div>
         </div>

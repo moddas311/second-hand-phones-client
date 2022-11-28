@@ -38,7 +38,7 @@ const MyBooking = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
+                            {bookings &&
                                 bookings.map((book, i) => <tr
                                     key={book._id}
                                 >

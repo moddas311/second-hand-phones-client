@@ -96,7 +96,7 @@ const Register = () => {
         googleLogin(provider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                setCreatedUserEmail(user.email);
                 toast.success('User Created Successfully.');
             })
             .catch(err => {
