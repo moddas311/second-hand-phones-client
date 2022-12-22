@@ -1,46 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../../AuthProvider/AuthProvider';
+import UserPhone from '../UserPhone/UserPhone';
 
 const AllSellers = () => {
 
-    const [sellers, setSellers] = useState([]);
+    const { user } = useContext(AuthContext);
+
+
+    const [phones, setPhones] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/users?type=seller')
+        fetch(`https://used-product-seller-assignment-server-side.vercel.app/usedPhones?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
-                setSellers(data);
+                setPhones(data);
                 console.log(data);
             })
-    }, [])
+    }, [user?.email])
 
     return (
-        <div>
-            <h2 className='text-3xl text-sky-400 pb-5 ml-10 font-semibold'>Sellers</h2>
-            <div className="overflow-x-auto mx-10">
-                <table className="table w-full">
-
-                    <thead>
-                        <tr>
-                            <th>SL NO.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Uer Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            sellers.map((seller, i) =>
-                                <tr
-                                    key={seller._id}
-                                >
-                                    <th>{i + 1}</th>
-                                    <td>{seller.name}</td>
-                                    <td>{seller.email}</td>
-                                    <td>{seller.role}</td>
-                                </tr>)
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10'>
+            {
+                phones.map(phone => <UserPhone
+                    key={phone._key}
+                    phone={phone}
+                />)
+            }
         </div>
     );
 };

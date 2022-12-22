@@ -5,14 +5,14 @@ import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import useToken from '../../../../hooks/useToken';
+import Sociallogin from '../Register/Sociallogin/Sociallogin';
 
 const Login = () => {
-    const { logIn, googleLogin } = useContext(AuthContext);
+    const { logIn } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const token = useToken(loginUserEmail);
-    const provider = new GoogleAuthProvider();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -27,26 +27,11 @@ const Login = () => {
         logIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                setLoginUserEmail(data.email);
+                setLoginUserEmail(user.email);
             })
             .catch(er => {
                 toast.error(er.message);
                 setLoginError(er.message);
-            })
-    }
-
-    // login with google
-    const handleGoogleLogin = () => {
-        googleLogin(provider)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                setLoginUserEmail(user.email);
-                navigate(from, { replace: true });
-            })
-            .catch(er => {
-                toast.error(er.message);
-                setLoginError(er.message)
             })
     }
 
@@ -81,7 +66,7 @@ const Login = () => {
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='pt-3 text-[12px] text-red-600'>{errors.password?.message}</p>}
                         <label className="label">
-                            <span className="label-text">Forget Password?</span>
+                            <span className="label-text"></span>
                         </label>
                     </div>
                     <input className='btn btn-accent w-full' value='Login' type="submit" />
@@ -98,7 +83,7 @@ const Login = () => {
                     </span>
                 </p>
                 <div className="divider">OR</div>
-                <button onClick={handleGoogleLogin} className='btn btn-outline w-full'>Continue With Google</button>
+                <Sociallogin />
             </div>
         </div>
     );

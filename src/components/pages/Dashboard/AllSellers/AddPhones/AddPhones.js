@@ -34,7 +34,7 @@ const AddPhones = () => {
                         postedDate: data.postedDate
                     }
 
-                    fetch('http://localhost:5000/usedPhones', {
+                    fetch('https://used-product-seller-assignment-server-side.vercel.app/usedPhones', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

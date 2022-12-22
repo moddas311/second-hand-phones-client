@@ -7,7 +7,7 @@ const Categories = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/category')
+        fetch('https://used-product-seller-assignment-server-side.vercel.app/category')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])

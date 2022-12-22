@@ -1,21 +1,20 @@
-import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import useToken from '../../../../hooks/useToken';
+import Sociallogin from './Sociallogin/Sociallogin';
 
 const Register = () => {
 
-    const { createUser, updateUser, googleLogin } = useContext(AuthContext);
-    const provider = new GoogleAuthProvider();
+    const { createUser, updateUser } = useContext(AuthContext);
+
 
     const [registerError, setRegisterError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
-    // const [imgUrl, setImgUrl] = useState('');
-    // console.log(imgUrl);
+
 
     const navigate = useNavigate();
 
@@ -74,7 +73,7 @@ const Register = () => {
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role }
-        fetch('http://localhost:5000/users', {
+        fetch('https://used-product-seller-assignment-server-side.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -83,30 +82,10 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setCreatedUserEmail(email)
-            })
-
-    }
-
-
-
-    // login with google
-    const handleGoogleLogin = () => {
-        googleLogin(provider)
-            .then(result => {
-                const user = result.user;
-                const email = user.email;
                 setCreatedUserEmail(email);
-                toast.success('User Created Successfully.');
             })
-            .catch(err => {
-                toast.error(err.message);
-                setRegisterError(err.message);
-            })
+
     }
-
-
-
 
     return (
         <div className='flex justify-center items-center'>
@@ -177,7 +156,7 @@ const Register = () => {
                     </span>
                 </p>
                 <div className="divider">OR</div>
-                <button onClick={handleGoogleLogin} className='btn btn-outline w-full'>Continue With Google</button>
+                <Sociallogin />
             </div>
         </div>
     );
